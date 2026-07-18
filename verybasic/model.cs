@@ -84,6 +84,29 @@ else
     Console.WriteLine("User not found.");
 }
 
+// DELETE
+static bool DeleteUser(List<User> users, int id) 
+{
+    User? userDelete = users.FirstOrDefault(user => user.Id == id);
+    if (userDelete == null)
+    {
+        return false;
+    }
+    users.Remove(userDelete);
+    return true;
+}
+
+bool wasDeleted = DeleteUser(users, 1);
+
+if (wasDeleted)
+{
+    Console.WriteLine("User deleted successfully.");
+}
+else
+{
+    Console.WriteLine("User not found.");
+}
+
 public class User 
 {
     public int Id { get; set; }
