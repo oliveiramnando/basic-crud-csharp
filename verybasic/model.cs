@@ -7,12 +7,12 @@ User user = new User
 };
 
 List<User> users = new List<User>();
-// List<User> users = new();
 
 users.Add(user);
 
 Console.WriteLine(user.Name);
 
+// CREATE  
 static void CreateUser(List<User> users, User newUser)
 {
     users.Add(newUser);
@@ -25,6 +25,7 @@ CreateUser(users, new User
     Email = "email",
 });
 
+// READ
 static void ReadAllUsers(List<User> users)
 {
     foreach (User u in users)
@@ -53,6 +54,35 @@ else
     Console.WriteLine($"Id: {foundUser.Id}, Name: {foundUser.Name}");
 }
 
+// UPDATE
+static bool UpdateUser(List<User> users, int id, string newName, string newEmail)
+{
+    User? foundUserUpdate = users.FirstOrDefault(user => user.Id == id);
+    if (foundUserUpdate == null)
+    {
+        return false;
+    }
+    foundUserUpdate.Name = newName;
+    foundUserUpdate.Email = newEmail;
+    
+    return true;
+}
+
+bool wasUpdated = UpdateUser(
+    users,
+    1,
+    "Fernando Oliveira",
+    "newemail@example.com"
+);
+
+if (wasUpdated)
+{
+    Console.WriteLine("User updated successfully.");
+}
+else
+{
+    Console.WriteLine("User not found.");
+}
 
 public class User 
 {
