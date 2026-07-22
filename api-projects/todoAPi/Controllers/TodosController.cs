@@ -28,11 +28,11 @@ public class TodosController : ControllerBase
             await _todoService.GetAllAsync(
                 isCompleted,
                 cancellationToken);
-                
+
         return Ok(todos);
     }
 
-    [HttpGet("{id:id}")]
+    [HttpGet("{id:int}")]
     [ProducesResponseType(
         typeof(TodoResponse),
         StatusCodes.Status200OK)]
