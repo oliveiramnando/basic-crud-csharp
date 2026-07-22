@@ -128,6 +128,26 @@ public class TodosController : ControllerBase
         return Ok(completedTodo);
     }
 
-    
+    [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(
+        int id,
+        CancellationToken cancellationToken)
+    {
+        bool deleted = await _todoService.DeleteAsync(
+            id, 
+            cancellationToken);
+        
+        if (!deleted)
+        {
+            return NotFound(new
+            {
+                message = $"Todo with ID {id} was not found."
+            });
+        }
+
+        return NoContent();
+    }
 
 }
