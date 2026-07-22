@@ -28,6 +28,7 @@ public class TodosController : ControllerBase
             await _todoService.GetAllAsync(
                 isCompleted,
                 cancellationToken);
+                
         return Ok(todos);
     }
 
