@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using TodoApi.DTOs.Todos;
 using TodoApi.Services.Interfaces;
@@ -74,5 +75,59 @@ public class TodosController : ControllerBase
             createdTodo);
     }
 
+    [HttpPut("{id:int}")]
+    [ProducesResponseType(
+        typeof(TodoResponse),
+        StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<TodoResponse>> Update(
+        int id,
+        UpdateTodoRequest request,
+        CancellationToken cancellationToken)
+    {
+        TodoResponse? updatedTodo =
+            await _todoService.UpdateAsync(
+                id,
+                request,
+                cancellationToken);
+        
+        if (updatedTodo is null)
+        {
+            return NotFound(new
+            {
+                message = $"Todo with ID {id} was not found."
+            });
+        }
+
+        return Ok(updatedTodo);
+    }
+
+    [HttpPatch("{id:int}/complete")]
+    [ProducesResponseType(
+        typeof(TodoResponse),
+        StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<TodoResponse>> MarkComplete(
+        int id,
+        CancellationToken cancellationToken)
+    {
+        TodoResponse? completedTodo =
+            await _todoService.MarkCompleteAsync(
+                id,
+                cancellationToken);
+        
+        if  (completedTodo is null)
+        {
+            return NotFound(new
+            {
+                message = $"Todo with ID {id} was not found."
+            });
+        }
+
+        return Ok(completedTodo);
+    }
+
     
+
 }
