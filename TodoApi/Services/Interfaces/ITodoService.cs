@@ -4,7 +4,7 @@ namespace TodoApi.Services.Interfaces;
 
 public interface ITodoService
 {
-    Task<IReadOnlyList<TodoResponse>> getAllAsync(
+    Task<IReadOnlyList<TodoResponse>> GetAllAsync(
         bool? isCompleted,
         CancellationToken cancellationToken);
 
