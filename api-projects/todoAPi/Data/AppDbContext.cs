@@ -28,7 +28,7 @@ public class AppDbContext : DbContext
             entity.Property(todo => todo.Description)
                 .HasMaxLength(1000);
 
-            entity.Property(todo => todo.IsComplete)
+            entity.Property(todo => todo.IsCompleted)
                 .HasDefaultValue(false);
 
             entity.Property(todo => todo.CreatedAtUtc)
