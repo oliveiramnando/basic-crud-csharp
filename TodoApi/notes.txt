@@ -55,5 +55,16 @@ create request and response DTOs (data transfer object)
         - response
             - server returns all public todo information
 
+create the service interface
+    - defines what a class promises to do
+    - convention
+        - interface names start with I
+        - ITodoService is implemented by TodoService
+    - controller depends on ITodoService not directly on TodoService
+    - useful when unit testing because you can replace the real service with a fake or mock implementation
+
+implement the service
+    - Services/TodoService.cs
+
 
 
